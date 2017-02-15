@@ -6,8 +6,7 @@ docker-compose start
 
 ## access the instance
 
-http://localhost:8153
-
+- [http://localhost:8153](http://localhost:8153)
 - might take some time for the webserver to start
 
 ## shutdown
