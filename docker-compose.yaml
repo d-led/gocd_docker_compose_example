@@ -1,0 +1,13 @@
+goserver:
+  image: "gocd/gocd-server"
+  hostname: go-server
+  ports:
+    - '8153:8153'
+    - '8154:8154'
+
+goagent:
+  image: "gocd/gocd-agent"
+  links:
+    - goserver
+  environment:
+    AGENT_KEY: '123456789abcdef'
