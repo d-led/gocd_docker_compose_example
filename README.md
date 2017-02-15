@@ -4,6 +4,18 @@
 docker-compose start
 ```
 
+## access the instance
+
+http://localhost:8153
+
+- might take some time for the webserver to start
+
+## shutdown
+
+```
+docker-compose stop
+```
+
 ## todo
 
 - [ ] build a customized server image with the [yaml config plugin](https://github.com/tomzo/gocd-yaml-config-plugin)
