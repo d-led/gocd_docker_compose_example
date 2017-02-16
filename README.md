@@ -1,7 +1,7 @@
 ## first time
 
 ```
-docker-compose up
+docker-compose create
 ```
 
 ## up and running
