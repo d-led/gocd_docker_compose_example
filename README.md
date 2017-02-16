@@ -1,3 +1,9 @@
+## first time
+
+```
+docker-compose up
+```
+
 ## up and running
 
 ```
