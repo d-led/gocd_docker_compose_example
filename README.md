@@ -1,19 +1,13 @@
-## first time
-
-```
-docker-compose create
-```
-
 ## up and running
 
 ```
-docker-compose start
+docker-compose up -d
 ```
 
 ## access the instance
 
 - [http://localhost:8153](http://localhost:8153)
-- might take some time for the webserver to start
+- the webserver might take some time to start
 
 ## shutdown
 
