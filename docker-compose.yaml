@@ -5,9 +5,18 @@ goserver:
     - '8153:8153'
     - '8154:8154'
 
-goagent:
+goagent_java:
   image: "gocd/gocd-agent"
   links:
     - goserver
   environment:
     AGENT_KEY: '123456789abcdef'
+    AGENT_RESOURCES: 'java,test'
+
+goagent_python3:
+  image: "gocd/gocd-agent"
+  links:
+    - goserver
+  environment:
+    AGENT_KEY: '123456789abcdef'
+    AGENT_RESOURCES: 'java,python3,test'
