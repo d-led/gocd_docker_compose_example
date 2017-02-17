@@ -1,0 +1,16 @@
+FROM ubuntu
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+RUN apt-get -y install python-pip
+
+RUN pip install gocdapi urlwait
+
+# cleanup
+RUN apt-get -y autoremove
+RUN rm -rf /var/lib/apt/lists/*
+
+COPY setup_pipelines.py /
+
+CMD python /setup_pipelines.py

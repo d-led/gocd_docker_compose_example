@@ -1,10 +1,9 @@
 version: "3"
 services:
-  goserver:
+  go-server:
     build:
         context: .
         dockerfile: Dockerfile.go-server
-    hostname: go-server
     ports:
       - '8153:8153'
       - '8154:8154'
@@ -12,7 +11,7 @@ services:
   goagent_java:
     image: "gocd/gocd-agent"
     links:
-      - goserver
+      - go-server
     environment:
       AGENT_KEY: '123456789abcdef'
       AGENT_RESOURCES: 'java,python,test'
@@ -22,7 +21,14 @@ services:
       context: .
       dockerfile: Dockerfile.lua
     links:
-      - goserver
+      - go-server
     environment:
       AGENT_KEY: '123456789abcdef'
       AGENT_RESOURCES: 'java,lua'
+
+  provisioner:
+    build:
+      context: .
+      dockerfile: Dockerfile.provisioner
+    links:
+      - go-server

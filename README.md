@@ -15,6 +15,12 @@ docker-compose up -d
 docker-compose stop
 ```
 
+or destroy via:
+
+```
+docker-compose down --remove-orphans
+```
+
 ## todo
 
 - [ ] build a customized server image with the [yaml config plugin](https://github.com/tomzo/gocd-yaml-config-plugin)
