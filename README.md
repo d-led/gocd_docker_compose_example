@@ -23,6 +23,6 @@ docker-compose down --remove-orphans
 
 ## todo
 
-- [ ] build a customized server image with the [yaml config plugin](https://github.com/tomzo/gocd-yaml-config-plugin)
-- [ ] bootstrap the pipeline either with  [gocdapi](https://github.com/joaogbcravo/gocdapi) or  [gomatic](https://github.com/SpringerSBM/gomatic) (drop the pipeline repo config XML blob or create the pipeline using any of the APIs)
-- [ ] create a couple of custom agents
+- [x] build a customized server image with the [yaml config plugin](https://github.com/tomzo/gocd-yaml-config-plugin)
+- [x] bootstrap the pipeline with the [REST API](https://api.gocd.io/current)
+- [x] create a couple of custom agents
