@@ -1,0 +1,8 @@
+FROM gocd/gocd-server
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN pip install gomatic
+RUN apt-get install wget
+
+RUN wget https://github.com/tomzo/gocd-yaml-config-plugin/releases/download/0.4.0/yaml-config-plugin-0.4.0.jar
