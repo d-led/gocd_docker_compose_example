@@ -34,9 +34,3 @@ or destroy via:
 ```
 docker-compose down --remove-orphans
 ```
-
-## todo
-
-- [x] build a customized server image with the [yaml config plugin](https://github.com/tomzo/gocd-yaml-config-plugin)
-- [x] bootstrap the pipeline with the [REST API](https://api.gocd.io/current)
-- [x] create a couple of custom agents
