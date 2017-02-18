@@ -7,7 +7,7 @@ a simple [GoCD](https://www.gocd.io/) demo environment that completely provision
 the startup sequence:
 
 - the Go server
-- tTwo different agents start
+- two different agents start
 - agents wait to connect to the server
 - the provisioner waits some, and adds the pipeline to the config
 - the server picks up the config and starts a build
