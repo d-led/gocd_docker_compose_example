@@ -19,7 +19,7 @@ services:
   goagent_lua:
     build:
       context: .
-      dockerfile: Dockerfile.lua
+      dockerfile: Dockerfile.lua-agent
     links:
       - go-server
     environment:

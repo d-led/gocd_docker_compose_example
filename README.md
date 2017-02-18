@@ -23,6 +23,8 @@ docker-compose up -d
 
 - http://[go-server-ip]:8153
 
+![](img/screen.png)
+
 ## shutdown
 
 ```

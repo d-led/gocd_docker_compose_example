@@ -2,6 +2,7 @@ from urlwait import wait_for_url
 import requests
 import sys
 import time
+import re
 
 requests.packages.urllib3.disable_warnings()
 
@@ -16,11 +17,12 @@ if not wait_for_url(url, 300):
 
 print("Go server is up...")
 
+print("Sleeping a bit...")
 time.sleep(100)
 
 orig = requests.api.request('get', config_url, verify=False)
 md5 = orig.headers['x-cruise-config-md5']
-xml_orig = orig.text
+xml_old = re.sub(r'(?is)<config-repos>.+</config-repos>', '', orig.text)
 
 repos = """<config-repos>
   <config-repo plugin="yaml.config.plugin">
@@ -29,7 +31,7 @@ repos = """<config-repos>
 </config-repos>
 """
 
-xml_new = xml_orig.replace("<agents>",repos+"<agents>")
+xml_new = xml_old.replace("<agents>", repos+"<agents>")
 
 data = {'xmlFile': xml_new, 'md5': md5}
 
