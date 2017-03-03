@@ -3,7 +3,8 @@ FROM gocd/gocd-agent
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
-RUN apt-get install -y --force-yes luarocks
+RUN apt-get install -y --force-yes luarocks ca-certificates-java
+RUN update-ca-certificates -f
 RUN luarocks install busted
 RUN lua -v
 

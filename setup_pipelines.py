@@ -22,13 +22,23 @@ time.sleep(100)
 
 orig = requests.api.request('get', config_url, verify=False)
 md5 = orig.headers['x-cruise-config-md5']
+# remove old config
 xml_old = re.sub(r'(?is)<config-repos>.+</config-repos>', '', orig.text)
+# remove <pipelines group="defaultGroup" />
+xml_old = re.sub(r'(?is)<pipelines group.+/>', '', xml_old)
 
 repos = """<config-repos>
   <config-repo plugin="yaml.config.plugin">
     <git url="https://github.com/d-led/gocd-rpi-unicorn-hat-monitor.git" />
   </config-repo>
+  <config-repo plugin="yaml.config.plugin">
+    <git url="https://github.com/d-led/automatic-lua-property-tables.git" />
+  </config-repo>
+  <config-repo plugin="yaml.config.plugin">
+    <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
+  </config-repo>
 </config-repos>
+<pipelines group="defaultGroup" />
 """
 
 xml_new = xml_old.replace("<agents>", repos+"<agents>")

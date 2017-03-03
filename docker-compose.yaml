@@ -24,7 +24,7 @@ services:
       - go-server
     environment:
       AGENT_KEY: '123456789abcdef'
-      AGENT_RESOURCES: 'java,lua'
+      AGENT_RESOURCES: 'gradle,java,lua'
 
   provisioner:
     build:
