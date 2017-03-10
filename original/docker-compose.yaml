@@ -1,0 +1,12 @@
+go-server:
+  image: "gocd/gocd-server"
+  ports:
+    - '8153:8153'
+    - '8154:8154'
+
+goagent:
+  image: "gocd/gocd-agent"
+  links:
+    - go-server
+  environment:
+    GO_SERVER_URL: https://go-server:8154/go
