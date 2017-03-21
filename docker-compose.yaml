@@ -9,7 +9,7 @@ services:
       - '8154:8154'
 
   goagent_java:
-    image: "gocd/gocd-agent"
+    image: "gocd/gocd-agent-ubuntu-16.04"
     links:
       - go-server
     environment:
