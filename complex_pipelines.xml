@@ -1,0 +1,149 @@
+  <pipelines>
+    <pipeline name="something_complex">
+      <materials>
+        <git url="https://github.com/d-led/gocd_docker_compose_example.git" />
+      </materials>
+      <stage name="build">
+        <jobs>
+          <job name="build">
+            <tasks>
+              <exec command="ls" />
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>df -h &gt; df.txt</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact src="df.txt" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="unit">
+        <jobs>
+          <job name="unit_test_1">
+            <tasks>
+              <exec command="ping">
+                <arg>-c</arg>
+                <arg>3</arg>
+                <arg>localhost</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <resources>
+              <resource>java</resource>
+            </resources>
+          </job>
+          <job name="unit_test_2">
+            <tasks>
+              <exec command="ping">
+                <arg>-c</arg>
+                <arg>1</arg>
+                <arg>localhost</arg>
+              </exec>
+            </tasks>
+            <resources>
+              <resource>python</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+      <stage name="package">
+        <jobs>
+          <job name="package">
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>ping -c 3 localhost &gt; ping.txt</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact src="ping.txt" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="acceptance">
+      <materials>
+        <pipeline pipelineName="something_complex" stageName="package" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ping">
+                <arg>-c</arg>
+                <arg>7</arg>
+                <arg>localhost</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="security">
+      <materials>
+        <pipeline pipelineName="something_complex" stageName="package" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ping">
+                <arg>-c</arg>
+                <arg>10</arg>
+                <arg>localhost</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="docs">
+      <materials>
+        <pipeline pipelineName="something_complex" stageName="build" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ping">
+                <arg>-c</arg>
+                <arg>15</arg>
+                <arg>localhost</arg>
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="deploy">
+      <materials>
+        <pipeline pipelineName="something_complex" stageName="package" />
+        <pipeline pipelineName="security" stageName="defaultStage" />
+        <pipeline pipelineName="acceptance" stageName="defaultStage" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <fetchartifact pipeline="something_complex" stage="build" job="build" srcfile="df.txt">
+                <runif status="passed" />
+              </fetchartifact>
+              <fetchartifact pipeline="something_complex" stage="package" job="package" srcfile="ping.txt">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="ls" />
+              <exec command="cat">
+                <arg>ping.txt</arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
