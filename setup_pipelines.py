@@ -26,6 +26,8 @@ md5 = orig.headers['x-cruise-config-md5']
 xml_old = re.sub(r'(?is)<config-repos>.+</config-repos>', '', orig.text)
 # remove <pipelines group="defaultGroup" />
 xml_old = re.sub(r'(?is)<pipelines group.+/>', '', xml_old)
+# set the standard autoregistration key 123456789abcdef
+xml_old = re.sub(r'(?is)agentAutoRegisterKey=\".*?\"', 'agentAutoRegisterKey=\"123456789abcdef\"', xml_old)
 
 repos = """<config-repos>
   <config-repo plugin="yaml.config.plugin">
@@ -41,7 +43,7 @@ repos = """<config-repos>
 <pipelines group="defaultGroup" />
 """
 
-xml_new = xml_old.replace("<agents>", repos+"<agents>")
+xml_new = xml_old.replace("</cruise>", repos+"</cruise>")
 
 data = {'xmlFile': xml_new, 'md5': md5}
 

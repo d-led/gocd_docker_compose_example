@@ -1,4 +1,4 @@
-  <pipelines>
+  <pipelines group="defaultGroup">
     <pipeline name="something_complex">
       <materials>
         <git url="https://github.com/d-led/gocd_docker_compose_example.git" />
@@ -122,7 +122,6 @@
     </pipeline>
     <pipeline name="deploy">
       <materials>
-        <pipeline pipelineName="something_complex" stageName="package" />
         <pipeline pipelineName="security" stageName="defaultStage" />
         <pipeline pipelineName="acceptance" stageName="defaultStage" />
       </materials>
@@ -130,10 +129,10 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <fetchartifact pipeline="something_complex" stage="build" job="build" srcfile="df.txt">
+              <fetchartifact pipeline="something_complex/acceptance" stage="build" job="build" srcfile="df.txt">
                 <runif status="passed" />
               </fetchartifact>
-              <fetchartifact pipeline="something_complex" stage="package" job="package" srcfile="ping.txt">
+              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="ping.txt">
                 <runif status="passed" />
               </fetchartifact>
               <exec command="ls" />
