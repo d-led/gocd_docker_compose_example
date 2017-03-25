@@ -21,6 +21,8 @@ the startup sequence:
 
 ## up and running
 
+in one of the folders:
+
 ```
 docker-compose up -d
 ```
