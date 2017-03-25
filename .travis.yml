@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - docker-compose build --pull
+  - cd provisioned_externally && docker-compose build --pull

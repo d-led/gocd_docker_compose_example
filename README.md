@@ -4,7 +4,12 @@
 
 a simple [GoCD](https://www.gocd.io/) demo environment that completely provisions itself and adds a [pipeline](https://github.com/d-led/cctray-rpi-unicorn-hat-monitor) (as a [YAML](https://github.com/tomzo/gocd-yaml-config-plugin) config) via the [REST API](https://api.gocd.io/).
 
-## summary
+## the versions
+
+- [original](original) - a server and an agent container as they are out of the box
+- [provisioned_externally](provisioned_externally) - 2 different agents, server provisioned externally via the API
+
+## summary of the provisioned version
 
 the startup sequence:
 
