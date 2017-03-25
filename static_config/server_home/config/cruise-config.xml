@@ -160,20 +160,4 @@
       </stage>
     </pipeline>
   </pipelines>
-  <agents>
-    <agent hostname="e5620f4f566e" ipaddress="172.19.0.4" uuid="79caebe1-8308-4d81-8516-b0ce0b846126">
-      <resources>
-        <resource>java</resource>
-        <resource>python</resource>
-        <resource>test</resource>
-      </resources>
-    </agent>
-    <agent hostname="194de41afec4" ipaddress="172.19.0.3" uuid="31f1c53d-1375-469c-b2e6-0c9f53d9d9d4">
-      <resources>
-        <resource>gradle</resource>
-        <resource>java</resource>
-        <resource>lua</resource>
-      </resources>
-    </agent>
-  </agents>
 </cruise>
