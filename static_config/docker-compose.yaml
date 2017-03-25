@@ -1,0 +1,30 @@
+version: "2"
+services:
+  go-server:
+    image: gocd/gocd-server:v17.3.0
+    volumes:
+      - ./server_home/plugins/external:/godata/plugins/external
+      - ./server_home/config/cruise-config.xml:/godata/config/cruise-config.xml
+    ports:
+      - '8153:8153'
+      - '8154:8154'
+
+  goagent_java:
+    image: gocd/gocd-agent-ubuntu-16.04:v17.3.0
+    links:
+      - go-server
+    environment:
+      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+      AGENT_AUTO_REGISTER_RESOURCES: 'java,python,test'
+      GO_SERVER_URL: https://go-server:8154/go
+
+  goagent_lua:
+    build:
+      context: .
+      dockerfile: Dockerfile.lua-agent
+    links:
+      - go-server
+    environment:
+      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+      AGENT_AUTO_REGISTER_RESOURCES: 'gradle,java,lua'
+      GO_SERVER_URL: https://go-server:8154/go
