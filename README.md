@@ -30,6 +30,10 @@ in [static_config](static_config), run:
 docker-compose up -d
 ```
 
+### troubleshooting
+
+- on some platforms Docker fails to mount local folders. In this case, use [node-docker-share](https://github.com/vweevers/node-docker-share)!
+
 ## access the instance
 
 - http://[go-server-ip]:8153
