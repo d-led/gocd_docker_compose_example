@@ -33,12 +33,6 @@ repos = """<config-repos>
   <config-repo plugin="yaml.config.plugin">
     <git url="https://github.com/downtrev/tdawg-yaml-config.git" />
   </config-repo>
-  <config-repo plugin="yaml.config.plugin">
-    <git url="https://github.com/d-led/automatic-lua-property-tables.git" />
-  </config-repo>
-  <config-repo plugin="yaml.config.plugin">
-    <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
-  </config-repo>
 </config-repos>
 <pipelines group="defaultGroup" />
 """
