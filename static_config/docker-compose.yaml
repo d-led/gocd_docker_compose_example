@@ -9,22 +9,24 @@ services:
       - '8153:8153'
       - '8154:8154'
 
-  goagent_java:
-    image: gocd/gocd-agent-ubuntu-16.04:v17.3.0
+  goagent_maven:
+    image: lijit/scm:builder_0.3
     links:
       - go-server
+    volumes:
+     - ~/.m2:/home/go/.m2
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'java,python,test'
+      AGENT_AUTO_REGISTER_RESOURCES: 'maven,nimbus2000,java,test'
       GO_SERVER_URL: https://go-server:8154/go
 
-  goagent_lua:
-    build:
-      context: .
-      dockerfile: Dockerfile.lua-agent
+  goagent_java:
+    image: lijit/scm:builder_0.3
     links:
       - go-server
+    volumes:
+     - ~/.m2:/home/go/.m2
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'gradle,java,lua'
+      AGENT_AUTO_REGISTER_RESOURCES: 'maven,nimbus2000,java,python,test'
       GO_SERVER_URL: https://go-server:8154/go
