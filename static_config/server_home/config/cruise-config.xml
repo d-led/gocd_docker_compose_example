@@ -1,163 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="90">
   <server artifactsdir="artifacts" agentAutoRegisterKey="123456789abcdef" commandRepositoryLocation="default" serverId="9d990e3b-44a6-4775-9948-c3d912d3b078" />
+  <scms>
+    <scm id="1e0dcf71-9935-418a-b5b4-fa850154978c" name="Tdawg-scm-github-test">
+      <pluginConfiguration id="github.pr" version="1.3.2" />
+      <configuration>
+        <property>
+          <key>url</key>
+          <value>https://github.com/kevinKalmbach/sovrnTest.git</value>
+        </property>
+        <property>
+          <key>defaultBranch</key>
+          <value>master</value>
+        </property>
+      </configuration>
+    </scm>
+  </scms>
   <config-repos>
     <config-repo plugin="yaml.config.plugin">
-      <git url="https://github.com/d-led/gocd-rpi-unicorn-hat-monitor.git" />
-    </config-repo>
-    <config-repo plugin="yaml.config.plugin">
-      <git url="https://github.com/d-led/automatic-lua-property-tables.git" />
-    </config-repo>
-    <config-repo plugin="yaml.config.plugin">
-      <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
+      <git url="https://github.com/downtrev/tdawg-yaml-config.git" />
     </config-repo>
   </config-repos>
-  <pipelines group="defaultGroup">
-    <pipeline name="something_complex">
-      <materials>
-        <git url="https://github.com/d-led/gocd_docker_compose_example.git" />
-      </materials>
-      <stage name="build">
-        <jobs>
-          <job name="build">
-            <tasks>
-              <exec command="ls" />
-              <exec command="/bin/bash">
-                <arg>-c</arg>
-                <arg>df -h &gt; df.txt</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-            <artifacts>
-              <artifact src="df.txt" />
-            </artifacts>
-          </job>
-        </jobs>
-      </stage>
-      <stage name="unit">
-        <jobs>
-          <job name="unit_test_1">
-            <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
-                <arg>3</arg>
-                <arg>localhost</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-            <resources>
-              <resource>java</resource>
-            </resources>
-          </job>
-          <job name="unit_test_2">
-            <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
-                <arg>1</arg>
-                <arg>localhost</arg>
-              </exec>
-            </tasks>
-            <resources>
-              <resource>python</resource>
-            </resources>
-          </job>
-        </jobs>
-      </stage>
-      <stage name="package">
-        <jobs>
-          <job name="package">
-            <tasks>
-              <exec command="/bin/bash">
-                <arg>-c</arg>
-                <arg>ping -c 3 localhost &gt; ping.txt</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-            <artifacts>
-              <artifact src="ping.txt" />
-            </artifacts>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="acceptance">
-      <materials>
-        <pipeline pipelineName="something_complex" stageName="package" />
-      </materials>
-      <stage name="defaultStage">
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
-                <arg>7</arg>
-                <arg>localhost</arg>
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="security">
-      <materials>
-        <pipeline pipelineName="something_complex" stageName="package" />
-      </materials>
-      <stage name="defaultStage">
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
-                <arg>10</arg>
-                <arg>localhost</arg>
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="docs">
-      <materials>
-        <pipeline pipelineName="something_complex" stageName="build" />
-      </materials>
-      <stage name="defaultStage">
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
-                <arg>15</arg>
-                <arg>localhost</arg>
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-    <pipeline name="deploy">
-      <materials>
-        <pipeline pipelineName="security" stageName="defaultStage" />
-        <pipeline pipelineName="acceptance" stageName="defaultStage" />
-      </materials>
-      <stage name="defaultStage">
-        <jobs>
-          <job name="defaultJob">
-            <tasks>
-              <fetchartifact pipeline="something_complex/acceptance" stage="build" job="build" srcfile="df.txt">
-                <runif status="passed" />
-              </fetchartifact>
-              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="ping.txt">
-                <runif status="passed" />
-              </fetchartifact>
-              <exec command="ls" />
-              <exec command="cat">
-                <arg>ping.txt</arg>
-                <runif status="passed" />
-              </exec>
-            </tasks>
-          </job>
-        </jobs>
-      </stage>
-    </pipeline>
-  </pipelines>
+  <pipelines group="Tdawgs" />
+  <environments>
+    <environment name="testing">
+      <agents>
+        <physical uuid="c9a92293-c2f2-4248-bca5-878f99e16cc5" />
+        <physical uuid="f30162f6-34a4-4e7e-b60e-33eeddba6e9c" />
+      </agents>
+    </environment>
+  </environments>
+  <agents>
+    <agent hostname="efda9dc64050" ipaddress="172.18.0.3" uuid="c9a92293-c2f2-4248-bca5-878f99e16cc5">
+      <resources>
+        <resource>maven</resource>
+        <resource>nimbus2000</resource>
+        <resource>java</resource>
+        <resource>python</resource>
+        <resource>test</resource>
+      </resources>
+    </agent>
+    <agent hostname="36fab40e3c01" ipaddress="172.18.0.4" uuid="f30162f6-34a4-4e7e-b60e-33eeddba6e9c">
+      <resources>
+        <resource>maven</resource>
+        <resource>nimbus2000</resource>
+        <resource>java</resource>
+        <resource>test</resource>
+      </resources>
+    </agent>
+  </agents>
 </cruise>
