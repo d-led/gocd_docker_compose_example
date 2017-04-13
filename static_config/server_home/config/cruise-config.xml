@@ -38,10 +38,8 @@
         <jobs>
           <job name="unit_test_1">
             <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
+              <exec command="sleep">
                 <arg>3</arg>
-                <arg>localhost</arg>
                 <runif status="passed" />
               </exec>
             </tasks>
@@ -51,10 +49,8 @@
           </job>
           <job name="unit_test_2">
             <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
+              <exec command="sleep">
                 <arg>1</arg>
-                <arg>localhost</arg>
               </exec>
             </tasks>
             <resources>
@@ -69,12 +65,12 @@
             <tasks>
               <exec command="/bin/bash">
                 <arg>-c</arg>
-                <arg>ping -c 3 localhost &gt; ping.txt</arg>
+                <arg>sleep 3 &gt; sleep.txt</arg>
                 <runif status="passed" />
               </exec>
             </tasks>
             <artifacts>
-              <artifact src="ping.txt" />
+              <artifact src="sleep.txt" />
             </artifacts>
           </job>
         </jobs>
@@ -88,10 +84,8 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
+              <exec command="sleep">
                 <arg>7</arg>
-                <arg>localhost</arg>
               </exec>
             </tasks>
           </job>
@@ -106,10 +100,8 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
+              <exec command="sleep">
                 <arg>10</arg>
-                <arg>localhost</arg>
               </exec>
             </tasks>
           </job>
@@ -124,10 +116,8 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <exec command="ping">
-                <arg>-c</arg>
+              <exec command="sleep">
                 <arg>15</arg>
-                <arg>localhost</arg>
               </exec>
             </tasks>
           </job>
@@ -146,12 +136,12 @@
               <fetchartifact pipeline="something_complex/acceptance" stage="build" job="build" srcfile="df.txt">
                 <runif status="passed" />
               </fetchartifact>
-              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="ping.txt">
+              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="sleep.txt">
                 <runif status="passed" />
               </fetchartifact>
               <exec command="ls" />
               <exec command="cat">
-                <arg>ping.txt</arg>
+                <arg>sleep.txt</arg>
                 <runif status="passed" />
               </exec>
             </tasks>
