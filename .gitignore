@@ -14,3 +14,4 @@ static_config/server_home/config/cruise-config.xsd
 static_config/server_home/config/cipher
 
 static_config/server_home/config/agentkeystore
+env.bat
