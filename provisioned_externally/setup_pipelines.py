@@ -45,10 +45,12 @@ repos = """<config-repos>
 
 xml_new = xml_old.replace("</cruise>", repos+"</cruise>")
 
+headers = {'Confirm': 'true'}
+
 data = {'xmlFile': xml_new, 'md5': md5}
 
-post = requests.api.request('post', config_url, data=data, verify=False)
+post = requests.api.request('post', config_url, data=data, headers=headers, verify=False)
 
-print("Updating the pipeline config: "+str(post))
+print("Updating the pipeline config: "+str(post) + " " + str(post.content))
 
 print(xml_new)
