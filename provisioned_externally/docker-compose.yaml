@@ -1,9 +1,9 @@
 version: "2"
 services:
   go-server:
-    image: gocd/gocd-server:v17.7.0
-    volumes:
-      - ./server_home/plugins/external:/godata/plugins/external
+    build:
+      context: .
+      dockerfile: Dockerfile.server
     ports:
       - '8153:8153'
       - '8154:8154'
