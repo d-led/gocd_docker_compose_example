@@ -10,3 +10,5 @@ goagent:
     - go-server
   environment:
     GO_SERVER_URL: https://go-server:8154/go
+    AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+    AGENT_AUTO_REGISTER_RESOURCES: 'java,python,test'
