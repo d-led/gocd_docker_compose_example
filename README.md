@@ -8,7 +8,7 @@ a simple [GoCD](https://www.gocd.io/) demo environment that completely provision
 
 ## the versions
 
-- [original](original) - a server and an agent container as they are out of the box
+- [gomatic](gomatic) - a server and an agent container as they are out of the box + a [gomatic](https://github.com/gocd-contrib/gomatic) script to provision the server
 - [static_config](static_config) - 2 different agents, server provisioned via a static config file mapped into the container
 - [provisioned_externally](provisioned_externally) - 2 different agents, server provisioned externally via the API
 
