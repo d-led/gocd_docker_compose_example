@@ -1,1 +1,0 @@
-https://github.com/tomzo/gocd-yaml-config-plugin
