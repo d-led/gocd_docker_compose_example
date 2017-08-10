@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 
-# pip install gomatic
-# gomatic master yet needs to be patched to send a 'Confirm: true' header
-# https://github.com/gocd-contrib/gomatic -> patch, pip install .
+# pip install gomatic (~>0.5.0)
+
+# when GoCD server is up, run python configure.py
 
 from gomatic import *
 import re
 import os
 
-url = re.search(r'//(.*)\:', os.environ['DOCKER_HOST']).group(1)+':8153'
+host = 'http://localhost:8153'
+
+if 'DOCKER_HOST' in os.environ:
+    host = os.environ['DOCKER_HOST']
+
+url = re.search(r'//(.*)\:', host).group(1)+':8153'
 
 print(url)
 
