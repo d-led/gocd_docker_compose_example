@@ -40,6 +40,8 @@ docker-compose up -d
 
 ![](img/screen.png)
 
+![](img/vsm.png)
+
 ## shutdown
 
 ```
