@@ -1,4 +1,0 @@
-FROM gocd/gocd-server:v17.8.0
-
-EXPOSE 8153
-EXPOSE 8154
