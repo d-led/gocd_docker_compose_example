@@ -1,4 +1,4 @@
-FROM gocd/gocd-server:v17.8.0
+FROM gocd/gocd-server:v17.9.0
 
 COPY ./server_home/config/cruise-config.xml /go-working-dir/config/cruise-config.xml
 

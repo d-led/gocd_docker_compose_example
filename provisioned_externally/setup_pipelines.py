@@ -34,13 +34,13 @@ xml_old = re.sub(r'(?is)<pipelines group.+/>', '', xml_old)
 xml_old = re.sub(r'(?is)agentAutoRegisterKey=\".*?\"', 'agentAutoRegisterKey=\"123456789abcdef\"', xml_old)
 
 repos = """<config-repos>
-    <config-repo plugin="yaml.config.plugin" id="gocd-rpi-unicorn-hat-monitor">
+    <config-repo pluginId="yaml.config.plugin" id="gocd-rpi-unicorn-hat-monitor">
       <git url="https://github.com/d-led/gocd-rpi-unicorn-hat-monitor.git" />
     </config-repo>
-    <config-repo plugin="yaml.config.plugin" id="automatic-lua-property-tables">
+    <config-repo pluginId="yaml.config.plugin" id="automatic-lua-property-tables">
       <git url="https://github.com/d-led/automatic-lua-property-tables.git" />
     </config-repo>
-    <config-repo plugin="yaml.config.plugin" id="dont_wait_forever_for_the_tests">
+    <config-repo pluginId="yaml.config.plugin" id="dont_wait_forever_for_the_tests">
       <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
     </config-repo>
 </config-repos>
