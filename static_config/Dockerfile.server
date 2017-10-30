@@ -1,7 +1,7 @@
-FROM gocd/gocd-server:v17.9.0
+FROM gocd/gocd-server:v17.11.0
 
-COPY ./server_home/config/cruise-config.xml /go-working-dir/config/cruise-config.xml
+COPY ./server_home/config/cruise-config.xml /godata/config/cruise-config.xml
 
-COPY ./server_home/config/cruise-config.xml /go-working-dir/config/cruise-config.xml2
+COPY ./server_home/config/cruise-config.xml /godata/config/cruise-config.xml2
 
-RUN chown -R go:go /go-working-dir /godata
+RUN chown -R go:go /godata
