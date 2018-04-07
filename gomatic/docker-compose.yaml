@@ -1,11 +1,11 @@
 go-server:
-  image: gocd/gocd-server:v18.1.0
+  image: gocd/gocd-server:v18.2.0
   ports:
     - '8153:8153'
     - '8154:8154'
 
 goagent:
-  image: gocd/gocd-agent-alpine-3.6:v18.1.0
+  image: gocd/gocd-agent-alpine-3.6:v18.2.0
   links:
     - go-server
   environment:
