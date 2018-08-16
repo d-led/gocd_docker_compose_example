@@ -9,7 +9,7 @@ services:
       - '8154:8154'
 
   goagent_java:
-    image: gocd/gocd-agent-alpine-3.6:v18.2.0
+    image: gocd/gocd-agent-alpine-3.6:v18.7.0
     links:
       - go-server
     environment:

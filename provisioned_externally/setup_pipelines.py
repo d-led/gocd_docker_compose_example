@@ -25,7 +25,7 @@ sys.stdout.flush()
 time.sleep(30)
 
 orig = requests.api.request('get', config_url, verify=False)
-md5 = orig.headers['x-cruise-config-md5']
+md5 = orig.headers['X-CRUISE-CONFIG-MD5']
 # remove old config
 xml_old = re.sub(r'(?is)<config-repos>.+</config-repos>', '', orig.text)
 # remove <pipelines group="defaultGroup" />

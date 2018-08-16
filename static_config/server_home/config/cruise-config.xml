@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="100">
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="111">
   <server artifactsdir="artifacts" agentAutoRegisterKey="123456789abcdef" webhookSecret="12f2e565-b3aa-4e1b-896f-ff98b5abbfb5" commandRepositoryLocation="default" serverId="f0eaf0f2-c1df-43f4-b526-33910ac96015" tokenGenerationKey="89d1bd4b-1fc0-448f-aab0-b700aca268ab" />
   <config-repos>
     <config-repo pluginId="yaml.config.plugin" id="gocd-rpi-unicorn-hat-monitor">
@@ -29,7 +29,7 @@
               </exec>
             </tasks>
             <artifacts>
-              <artifact src="df.txt" />
+              <artifact type="build" src="df.txt" />
             </artifacts>
           </job>
         </jobs>
@@ -70,7 +70,7 @@
               </exec>
             </tasks>
             <artifacts>
-              <artifact src="sleep.txt" />
+              <artifact type="build" src="sleep.txt" />
             </artifacts>
           </job>
         </jobs>
@@ -133,10 +133,10 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <fetchartifact pipeline="something_complex/acceptance" stage="build" job="build" srcfile="df.txt">
+              <fetchartifact artifactOrigin="gocd" srcfile="df.txt" pipeline="something_complex/acceptance" stage="build" job="build">
                 <runif status="passed" />
               </fetchartifact>
-              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="sleep.txt">
+              <fetchartifact artifactOrigin="gocd" srcfile="sleep.txt" pipeline="something_complex/acceptance" stage="package" job="package">
                 <runif status="passed" />
               </fetchartifact>
               <exec command="ls" />
@@ -149,5 +149,5 @@
         </jobs>
       </stage>
     </pipeline>
-  </pipelines> 
+  </pipelines>
 </cruise>

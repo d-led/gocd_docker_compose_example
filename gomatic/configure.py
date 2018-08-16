@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# pip install gomatic (~>0.5.0)
+# pip install gomatic (~>0.6.4)
 
 # when GoCD server is up, run python configure.py
 
@@ -17,7 +17,7 @@ url = re.search(r'//(.*)\:', host).group(1)+':8153'
 
 print(url)
 
-configurator = GoCdConfigurator(HostRestClient(url))
+configurator = GoCdConfigurator(HostRestClient(url, ssl=False))
 
 configurator.agent_auto_register_key = '123456789abcdef'
 
@@ -76,8 +76,9 @@ pipeline = configurator\
 	.ensure_material(PipelineMaterial("acceptance", "defaultStage"))
 stage = pipeline.ensure_stage("defaultStage")
 job = stage.ensure_job("defaultJob")
-job.add_task(FetchArtifactTask("something_complex/acceptance", "build", "build", FetchArtifactFile("df.txt")))
-job.add_task(FetchArtifactTask("something_complex/acceptance", "package", "package", FetchArtifactFile("sleep.txt")))
+# currently broken with v18.7.0
+# job.add_task(FetchArtifactTask("something_complex/acceptance", "build", "build", FetchArtifactFile("df.txt")))
+# job.add_task(FetchArtifactTask("something_complex/acceptance", "package", "package", FetchArtifactFile("sleep.txt")))
 job.add_task(ExecTask(['ls']))
 job.add_task(ExecTask(['cat', 'sleep.txt']))
 

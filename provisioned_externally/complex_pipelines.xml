@@ -15,7 +15,7 @@
               </exec>
             </tasks>
             <artifacts>
-              <artifact src="df.txt" />
+              <artifact type="build" src="df.txt" />
             </artifacts>
           </job>
         </jobs>
@@ -56,7 +56,7 @@
               </exec>
             </tasks>
             <artifacts>
-              <artifact src="sleep.txt" />
+              <artifact type="build" src="sleep.txt" />
             </artifacts>
           </job>
         </jobs>
@@ -119,10 +119,10 @@
         <jobs>
           <job name="defaultJob">
             <tasks>
-              <fetchartifact pipeline="something_complex/acceptance" stage="build" job="build" srcfile="df.txt">
+              <fetchartifact artifactOrigin="gocd" srcfile="df.txt" pipeline="something_complex/acceptance" stage="build" job="build">
                 <runif status="passed" />
               </fetchartifact>
-              <fetchartifact pipeline="something_complex/acceptance" stage="package" job="package" srcfile="sleep.txt">
+              <fetchartifact artifactOrigin="gocd" srcfile="sleep.txt" pipeline="something_complex/acceptance" stage="package" job="package">
                 <runif status="passed" />
               </fetchartifact>
               <exec command="ls" />
