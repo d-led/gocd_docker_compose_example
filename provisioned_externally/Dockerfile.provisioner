@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get -y install python-pip
 
-RUN pip install gocdapi urlwait
+RUN pip install requests
 
 # cleanup
 RUN apt-get -y autoremove

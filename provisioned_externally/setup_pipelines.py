@@ -1,5 +1,5 @@
-from urlwait import wait_for_url
 import requests
+from requests import get
 import sys
 import time
 import re
@@ -7,14 +7,28 @@ import re
 requests.packages.urllib3.disable_warnings()
 
 url = "http://go-server:8153"
+health_url = url + "/go/api/v1/health"
 url_ssl = "https://go-server:8154"
 config_url = url_ssl + "/go/api/admin/config.xml"
+retries = 30
+sleep_seconds = 10
 
-print("Waiting for " + url)
+print("Waiting for " + health_url)
 sys.stdout.flush()
-if not wait_for_url(url, 300):
-    print("Go server did not start in a timely fashion. Please retry docker-compose up provisioner")
-    sys.exit()
+
+for i in range(retries + 1):
+    try:
+        if "OK" in get(health_url).text:
+            break
+    except:
+        print("not yet...")
+        sys.stdout.flush()
+
+    if i == retries:
+        print("Go server did not start in a timely fashion. Please retry docker-compose up provisioner")
+        sys.exit()
+
+    time.sleep(sleep_seconds)
 
 print("Go server is up...")
 sys.stdout.flush()
@@ -22,7 +36,7 @@ sys.stdout.flush()
 print("Sleeping a bit...")
 sys.stdout.flush()
 
-time.sleep(30)
+time.sleep(10)
 
 orig = requests.api.request('get', config_url, verify=False)
 md5 = orig.headers['X-CRUISE-CONFIG-MD5']
