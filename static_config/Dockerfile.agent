@@ -1,0 +1,17 @@
+FROM gocd/gocd-agent-alpine:v25.4.0
+
+# Switch to root to install packages
+USER root
+
+# Install OpenJDK 21 (Alpine)
+RUN apk add --no-cache \
+    openjdk21 \
+    bash \
+    git
+
+# Set JAVA_HOME
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# Switch back to go user
+USER go

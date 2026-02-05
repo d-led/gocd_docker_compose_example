@@ -1,29 +1,45 @@
-version: "2"
 services:
   go-server:
-    build:
-      context: .
-      dockerfile: Dockerfile.server
+    image: gocd/gocd-server:v25.4.0
     ports:
       - '8153:8153'
       - '8154:8154'
-
-  goagent_java:
-    image: gocd/gocd-agent-alpine-3.6:v18.12.0
-    links:
-      - go-server
+    volumes:
+      - godata:/godata
+      - gohome:/home/go
+      - ./config:/godata/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8153/go/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     environment:
-      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'java,python,test'
-      GO_SERVER_URL: https://go-server:8154/go
+      GOCD_SERVER_JVM_OPTS: '-Xmx2g -Xms1g'
 
-  goagent_lua:
+  goagent_1:
     build:
       context: .
-      dockerfile: Dockerfile.lua-agent
-    links:
-      - go-server
+      dockerfile: Dockerfile.agent
+    depends_on:
+      go-server:
+        condition: service_healthy
     environment:
       AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
-      AGENT_AUTO_REGISTER_RESOURCES: 'gradle,java,lua'
-      GO_SERVER_URL: https://go-server:8154/go
+      AGENT_AUTO_REGISTER_RESOURCES: 'gradle,java'
+      GO_SERVER_URL: http://go-server:8153/go
+
+  goagent_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    depends_on:
+      go-server:
+        condition: service_healthy
+    environment:
+      AGENT_AUTO_REGISTER_KEY: '123456789abcdef'
+      AGENT_AUTO_REGISTER_RESOURCES: 'gradle,java'
+      GO_SERVER_URL: http://go-server:8153/go
+
+volumes:
+  godata:
+  gohome:

@@ -1,17 +1,9 @@
 
-static_config/server_home/config/truststore
+# Generated GoCD server files
+static_config/config/cipher.aes
+static_config/config/cruise-config.xsd
+static_config/config/jetty.xml
+static_config/config/logback-include.xml
 
-static_config/server_home/config/log4j.properties
-
-static_config/server_home/config/keystore
-
-static_config/server_home/config/jetty.xml
-
-static_config/server_home/config/go_update_server.pub
-
-static_config/server_home/config/cruise-config.xsd
-
-static_config/server_home/config/cipher
-
-static_config/server_home/config/agentkeystore
+# Environment files
 env.bat

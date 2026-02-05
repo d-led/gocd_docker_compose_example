@@ -1,7 +1,0 @@
-sudo: required
-
-services:
-  - docker
-
-script:
-  - cd provisioned_externally && docker-compose build --pull

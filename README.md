@@ -1,56 +1,65 @@
-# GoCD Infrastructure as Code
+# GoCD Docker Compose Example
 
-[![Build Status](https://travis-ci.org/d-led/gocd_docker_compose_example.svg?branch=master)](https://travis-ci.org/d-led/gocd_docker_compose_example)
+A minimal, working [GoCD](https://www.gocd.org/) v25.4.0 setup using **static XML configuration** that runs out of the box.
 
-a simple [GoCD](https://www.gocd.io/) demo environment that completely provisions itself and adds build pipelines (as code), e.g. as a [YAML](https://github.com/tomzo/gocd-yaml-config-plugin) config, via the [REST API](https://api.gocd.io/) / an external tool (gomatic) / through an XML config file.
+## Quick Start
 
-[&rarr; Blog: Self-contained GoCD Environment Using Docker-Compose](https://ledentsov.de/2017/03/04/self-contained-gocd-docker-compose/)
-
-## the versions
-
-- [gomatic](gomatic) - a server and an agent container as they are out of the box + a [gomatic](https://github.com/gocd-contrib/gomatic) script to provision the server (**needs fixing** for the current GoCD version)
-- [static_config](static_config) - 2 different agents, server provisioned via a static config file copie into the container
-- [provisioned_externally](provisioned_externally) - 2 different agents, server provisioned externally via the API
-
-## summary of the provisioned version
-
-the startup sequence:
-
-- the GoCD server starts
-- two different agents start
-- agents wait to connect to the server
-- the provisioner waits some, and adds the pipelines to the config
-- the server picks up the config and starts the builds
-
-## up and running
-
-in [static_config](static_config), run:
-
-```
+```bash
+cd static_config
 docker-compose up -d
 ```
 
-### troubleshooting
+Access the UI at: [http://localhost:8153](http://localhost:8153)
 
-- see the console output of the containers
-- In case you mount folders instead of copying them, note, on some platforms Docker fails to mount local folders. In this case, use [node-docker-share](https://github.com/vweevers/node-docker-share)!
+The `dont-wait-forever` pipeline is pre-configured in [static_config/config/cruise-config.xml](static_config/config/cruise-config.xml) - it runs real Gradle tests from [this repo](https://github.com/d-led/dont_wait_forever_for_the_tests).
 
-## access the instance
+## Demo Contents
 
-- http://[go-server-ip]:8153
+- **GoCD Server v25.4.0**: Pre-configured with a real Gradle test pipeline
+- **2 Agents**: Alpine-based with OpenJDK 21 pre-installed
+- **Static Configuration**: Pure XML config - no external repos, no setup scripts
+- **Persistent Storage**: Volumes retain configuration across restarts
 
-![](img/screen.png)
+## Project Structure
 
-![](img/vsm.png)
-
-## shutdown
-
+```shell
+static_config/
+├── docker-compose.yaml      # Orchestration - server + 2 agents
+├── Dockerfile.agent         # Custom Alpine agent with JDK 21
+├── config/
+│   └── cruise-config.xml    # Static pipeline configuration
+└── .gitignore               # Ignores GoCD-generated files
 ```
-docker-compose stop
+
+## How It Works
+
+The demo pipeline is defined directly in `config/cruise-config.xml`. When the server starts, it:
+
+1. Mounts the config directory into the container
+2. Reads the pipeline configuration
+3. Agents auto-register and connect
+
+No git repositories, no config repos, no setup scripts - just static XML that works.
+
+## Common Commands
+
+```bash
+# View status
+docker-compose ps
+
+# Follow logs
+docker-compose logs -f
+
+# Stop everything
+docker-compose down
+
+# Full restart (clean volumes)
+docker-compose down -v && docker-compose up -d
 ```
 
-or destroy via:
+## Notes
 
-```
-docker-compose down --remove-orphans
-```
+- **Server**: Runs on [http://localhost:8153](http://localhost:8153)
+- **Agent Key**: `123456789abcdef` (for auto-registration, for demo purposes only)
+- **Volumes**: `godata` and `gohome` persist across restarts
+- **JDK**: OpenJDK 21 pre-installed on Alpine-based agents

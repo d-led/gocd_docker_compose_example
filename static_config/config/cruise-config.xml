@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="139">
+  <server agentAutoRegisterKey="123456789abcdef" webhookSecret="e20e95ed-7d4f-444b-a689-12ff51203fb7" serverId="980068cf-4922-49a1-a471-6224db3e1dfa" tokenGenerationKey="808869fd-a94a-4c4d-b5bb-09267f194964">
+    <artifacts>
+      <artifactsDir>artifacts</artifactsDir>
+    </artifacts>
+  </server>
+  <pipelines group="demo">
+    <pipeline name="dont-wait-forever">
+      <materials>
+        <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
+      </materials>
+      <stage name="test">
+        <jobs>
+          <job name="unit-tests">
+            <tasks>
+              <exec command="chmod">
+                <arg>+x</arg>
+                <arg>gradlew</arg>
+              </exec>
+              <exec command="./gradlew">
+                <arg>--no-daemon</arg>
+              </exec>
+            </tasks>
+            <resources>
+              <resource>gradle</resource>
+              <resource>java</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+</cruise>

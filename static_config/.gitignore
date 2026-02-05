@@ -1,0 +1,8 @@
+# GoCD generated files - these will be created by the server on startup
+config/cipher.aes
+config/cruise-config.xsd
+config/jetty.xml
+config/logback-include.xml
+
+# Keep only our static config
+!config/cruise-config.xml
