@@ -30,5 +30,24 @@
         </jobs>
       </stage>
     </pipeline>
+    <pipeline name="capture-protocol">
+      <materials>
+        <git url="https://github.com/d-led/dont_wait_forever_for_the_tests.git" />
+      </materials>
+      <stage name="probe">
+        <jobs>
+          <job name="probe-job">
+            <tasks>
+              <exec command="echo">
+                <arg>capture-me</arg>
+              </exec>
+            </tasks>
+            <resources>
+              <resource>capture</resource>
+            </resources>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
   </pipelines>
 </cruise>
